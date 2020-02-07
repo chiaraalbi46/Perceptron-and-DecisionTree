@@ -9,6 +9,8 @@ import git
 from sklearn.preprocessing import StandardScaler
 from sklearn.metrics import accuracy_score
 
+# Funzione per caricare il dataset
+
 
 def loadDataset():
     if not os.path.isdir('./data'):
@@ -31,6 +33,8 @@ def loadDataset():
 
     return XTrain, yTrain, XTest, yTest
 
+# Funzione per normalizzare i dati di training
+
 
 def scaleData(trainX, testX):
     sc = StandardScaler()
@@ -38,6 +42,8 @@ def scaleData(trainX, testX):
     trainXStd = sc.transform(trainX)
     testXStd = sc.transform(testX)
     return trainXStd, testXStd
+
+# Funzioni per visualizzare le immagini del dataset
 
 
 def showImage(i, images, trueLabels, pred=None, group=False):
@@ -85,14 +91,16 @@ def plotImages(rows, cols, images, trueLabels, pred):
     plt.tight_layout()
     plt.show()
 
+# Funzione per disegnare le curve di apprendimento
+
 
 def plotLearningCurve(estimator, trainX, trainY, testX, testY, iter):
 
     trainSizes = [10, 10000, 20000, 30000, 40000, 50000, 60000]
 
-    trainIndexes = list(range(len(trainX)))  # 60.000 indici -- da 0 a 59999 -- ad ogni immagine associo un indice numerico  -- in ordine 'cronologico'
+    trainIndexes = list(range(len(trainX)))
 
-    testIndexes = list(range(len(testX)))  # 10.000 indici -- da 0 a 9999 -- ad ogni label associo un indice numerico -- in ordine 'cronologico'
+    testIndexes = list(range(len(testX)))
 
     # Matrici per gli score e per le predizioni
 
@@ -101,7 +109,6 @@ def plotLearningCurve(estimator, trainX, trainY, testX, testY, iter):
 
     for i in range(iter):
         print("\nIterazione numero: ", i)
-        # print('contenuto trainX: ', trainX[:3, :15])
 
         # Shuffle del training set
 
@@ -112,13 +119,9 @@ def plotLearningCurve(estimator, trainX, trainY, testX, testY, iter):
         currentTestIndexes = testIndexes
 
         currentXTrain = trainX[currentTrainIndexes]
-        print("Numero di righe currentXTrain: ", len(currentXTrain))
-        print('Numero di colonne currentXTrain: ', len(currentXTrain[0]))
         currentYTrain = trainY[currentTrainIndexes]
         currentXTest = testX[currentTestIndexes]
         currentYTest = testY[currentTestIndexes]
-
-        print("contenuto currentXTrain: ", currentXTrain[:3, :15])
 
         # Ciclo su trainSizes
 
@@ -127,35 +130,25 @@ def plotLearningCurve(estimator, trainX, trainY, testX, testY, iter):
             print("\nDimensione corrente: ", s)
             cXtrain = currentXTrain[:s]
             cyTrain = currentYTrain[:s]
-            # print('X: ', cXtrain)
-            # print('Y: ', cyTrain)
-            print("Numero di righe cXtrain: ", len(cXtrain))
-            print('Numero di colonne cXtrain: ', len(cXtrain[0]))
-            print("Numero di elementi in cyTrain: ", len(cyTrain))
 
-            # Fit
+            # Allenamento del modello
 
             estimator.fit(cXtrain, cyTrain)
 
-            # Training accuracy
+            # Accuratezza sui dati di training
 
             yPredTrain = estimator.predict(cXtrain)
             trainScore = accuracy_score(yPredTrain, cyTrain)
             print("Training accuracy: ", trainScore)
             scoresTr[i][j] = trainScore
 
-            # Testing accuracy
+            # Accuratezza sui dati di testing
 
             yPred = estimator.predict(currentXTest)
             # plotImages(2, 3, currentXTest, currentYTest, pred=yPred)
-            print("PREDIZIONEEEEE: ", yPred)
-            print("LUNGHEZZA PREDIZIONE: ", len(yPred))
             testScore = accuracy_score(yPred, currentYTest)
             print("Testing accuracy: ", testScore)
             scoresTe[i][j] = testScore
-
-    print(scoresTe)
-    print('Righe matrice degli score per il test', len(scoresTe), '\nColonne matrice degli score per il test: ', len(scoresTe[0]))
 
     # Media e deviazione standard dei training e dei testing scores raccolti, per ogni train size
 
@@ -178,7 +171,7 @@ def plotLearningCurve(estimator, trainX, trainY, testX, testY, iter):
     plt.ylabel('Accuracy Score')
     plt.xlabel('Training Set Sizes')
     plt.legend(loc='best')
-    plt.title('Learning Curves')
+    # plt.title('Learning Curves')
     plt.grid()
     plt.show()
 
