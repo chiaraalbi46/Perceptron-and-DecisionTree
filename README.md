@@ -6,7 +6,7 @@ Il progetto permette di confrontare le curve di apprendimento dei modelli Percep
 
 Le librerie necessarie per la corretta esecuzione del programma sono le seguenti: 
 
-- [os](https://docs.python.org/3.7/library/os.html), [shutil](https://docs.python.org/3.7/library/shutil.html), [tempfile](https://docs.python.org/3.7/library/tempfile.html) : Sono i moduli che permettono, tra le altre cose, di accedere alla cartella del progetto, creare al suo interno nuove cartelle, costruire cartelle temporanee e spostare i file da una cartella all'altra. Queste operazioni sono fondamentali per ottenere il dataset senza doverlo scaricare manualmente dal [link](https://github.com/zalandoresearch/fashion-mnist) o dover clonare l'intero progetto github di Zalando. Infatti la procedura per disporre del dataset e soprattutto del file di parsing è incapsulata nella funzione ``loadDataset``, presente nel file **functions.py**, che al momento della prima esecuzione provvede a scaricare quanto detto e a salvarlo nella cartella **./dataset**. 
+- [os](https://docs.python.org/3.7/library/os.html), [shutil](https://docs.python.org/3.7/library/shutil.html), [tempfile](https://docs.python.org/3.7/library/tempfile.html) : Sono i moduli che permettono, tra le altre cose, di accedere alla cartella del progetto, creare al suo interno nuove cartelle, costruire cartelle temporanee e spostare i file da una cartella all'altra. Queste operazioni sono fondamentali per ottenere il dataset senza doverlo scaricare manualmente dal [link](https://github.com/zalandoresearch/fashion-mnist) o dover clonare l'intero progetto github di Zalando. Infatti la procedura per disporre del dataset e soprattutto del file di parsing è incapsulata nella funzione ``loadDataset``, presente nel file **functions.py**, che al momento della prima esecuzione provvede a scaricare quanto detto e a salvarlo nella cartella **./data**. 
 
 - [GitPython](https://gitpython.readthedocs.io/en/stable/) : E' il modulo che permette di clonare da un repository  github le cartelle e/o i file di cui si ha bisogno. Nel nostro caso permette di clonare la cartella che contiene i dati di training e di testing dal repository di Zalando, insieme al file di parsing del dataset stesso. 
 
@@ -14,9 +14,10 @@ Le librerie necessarie per la corretta esecuzione del programma sono le seguenti
 
 - [Numpy](https://numpy.org/) : E' la libreria che contiene funzioni generiche per lavorare con array, sequenze di indici e molto altro.
 
-- [Matplotlib](https://matplotlib.org/) : E' la libreria che fornisce le funzioni per disegnare i grafici e tutte le relative impostazioni. Mette a disposizione anche delle funzioni per stampare a video le immagini, che nel nostro caso sono state utilizzate nella costruzione delle funzioni per visualizzare le immagini del dateset. 
+- [Matplotlib](https://matplotlib.org/) : E' la libreria che fornisce le funzioni per disegnare i grafici e tutte le relative impostazioni. Mette a disposizione anche delle funzioni per stampare le immagini, che nel nostro caso sono state utilizzate nella costruzione delle funzioni per visualizzare le immagini del dateset. 
 
-Tutti i moduli elencati possono essere scaricati attraverso il package installer [pip](https://pip.pypa.io/en/stable/), semplicemente digitando da riga di comando ``pip install <nome_modulo>``.
+Tutti i moduli elencati possono essere scaricati attraverso il package installer [pip](https://pip.pypa.io/en/stable/), semplicemente digitando da riga di comando ``pip install <nome_modulo>``. Per comodità nel repository è stato inserito un file **requirements.txt**, nel quale sono presenti i pacchetti citati, che possono essere installati in blocco utilizzando il comando ``pip install -r requirements.txt``. 
+E' inoltre necessario che sia installato sul computer [Git](https://git-scm.com/).
 
 # Codice 
 
